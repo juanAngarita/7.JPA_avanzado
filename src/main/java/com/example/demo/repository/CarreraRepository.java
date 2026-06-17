@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entities.Carrera;
 
-@Repository
 public interface CarreraRepository extends JpaRepository<Carrera, Long> {
 
 }

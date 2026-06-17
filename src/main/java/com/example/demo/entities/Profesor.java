@@ -27,12 +27,15 @@ public class Profesor {
     private String correo;
 
     @ManyToMany
+    @Builder.Default
     private List<Student> students = new ArrayList<>();
 
     @OneToMany(mappedBy = "profesor")
+    @Builder.Default
     private List<Curso> cursos = new ArrayList<>();
 
     public Profesor(String nombre, String correo) {
+        this.students = new ArrayList<>();
         this.nombre = nombre;
         this.correo = correo;
     }

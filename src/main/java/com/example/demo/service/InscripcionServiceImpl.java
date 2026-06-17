@@ -34,8 +34,10 @@ public class InscripcionServiceImpl implements InscripcionService {
     public void createAndSaveMultipleInscriptions(Long studentId, List<Long> cursosIds) {
 
         // eliminar todas las demas inscripciones
-
         Student student = studentService.searchById(studentId);
+        for (Inscripcion inscripcion : student.getInscripciones()) {
+            inscripcionRepository.delete(inscripcion);
+        }
 
         for (Long cursoId : cursosIds) {
             Curso curso = cursoService.searchById(cursoId);

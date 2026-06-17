@@ -22,10 +22,10 @@
   <body>
     <div th:replace="fragmentos :: navbar"></div>
 
-    <h1 class="text-center">User Info</h1>
+    <h1 class="text-center mt-4 mb-4">Información del estudiante</h1>
     <main class="container">
       <div class="d-flex flex-row justify-content-center">
-        <div class="card" style="width: 30rem">
+        <div class="card" style="width: 40rem">
           <div class="card-header" th:text="${estudiante.nombre}"></div>
           <div class="card-body d-flex flex-row">
             <div>
@@ -36,7 +36,7 @@
               <span th:text="${estudiante.id}"></span>
               <br />
               <span class="fw-bold">Correo: </span>
-              <span th:text="${estudiante.nombre}"></span>
+              <span th:text="${estudiante.correo}"></span>
               <br />
               <span class="fw-bold">Carrera: </span>
               <span th:text="${estudiante.carrera.nombre}"></span>
@@ -44,8 +44,14 @@
               <span class="fw-bold">Semestre: </span>
               <span th:text="${estudiante.semestre}"></span>
               <br />
-              <span class="fw-bold">Profesores: </span>
-              <span th:text="${estudiante.profesores.size()}"></span>
+              <span class="fw-bold">Cursos inscritos:</span>
+              <ul>
+                <li th:each="inscripcion : ${estudiante.inscripciones}">
+                  <span th:text="${inscripcion.curso.nombre}"></span>
+                  -
+                  <span th:text="${inscripcion.curso.profesor.nombre}"></span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

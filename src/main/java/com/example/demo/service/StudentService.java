@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.example.demo.entities.Student;
 
@@ -13,5 +14,7 @@ public interface StudentService {
     public void save(Student student, Long carreraId);
 
     public void delete(Long id);
+
+    public List<Student> findByNombre(String nombre);
 
 }

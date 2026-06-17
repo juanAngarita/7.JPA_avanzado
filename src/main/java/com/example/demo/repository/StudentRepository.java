@@ -14,7 +14,6 @@ import com.example.demo.entities.Student;
 import lombok.extern.java.Log;
 import java.util.List;
 
-@Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
     // sql: select * from student where nombre = ?

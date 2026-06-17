@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,14 @@ public class StudentServiceImpl implements StudentService {
 
         student.getProfesores().clear();
         repo.delete(student);
+    }
+
+    @Override
+    public List<Student> findByNombre(String nombre) {
+        if(nombre == null || nombre.isEmpty()) {
+            return repo.findAll();
+        }
+        return repo.findByNombre(nombre);
     }
 
 }

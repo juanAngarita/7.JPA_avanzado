@@ -15,22 +15,61 @@
   <body>
     <div th:replace="fragmentos :: navbar"></div>
 
-    <main class="container">
-      <h1 class="text-center">Inscriibir materias</h1>
-      <p>Estudiante: <span th:text="${estudiante.nombre}"></span></p>
+    <main class="container py-5">
 
-      <form
-        th:action="@{/student/{id}/inscribir(id=${estudiante.id})}"
-        method="post"
-      >
-        <p>Selecciona tus cursos</p>
-        <div th:each="curso : ${cursos}">
-          <input type="checkbox" name="cursosIds" th:value="${curso.id}" />
-          <span th:text="${curso.nombre} + ' - ' + ${curso.semestre}"></span>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow">
+            <div class="card-header text-center">
+              <h2 class="mb-0">Inscripción de Materias</h2>
+            </div>
+
+            <div class="card-body">
+              <div class="alert alert-light border">
+                <strong>Estudiante:</strong>
+                <span th:text="${estudiante.nombre}"></span>
+              </div>
+
+              <form
+                th:action="@{/student/{id}/inscribir(id=${estudiante.id})}"
+                method="post"
+              >
+                <h5 class="mb-3">Cursos disponibles</h5>
+
+                <div class="list-group mb-4">
+                  <label
+                    th:each="curso : ${cursos}"
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <input
+                        class="form-check-input me-3"
+                        type="checkbox"
+                        name="cursosIds"
+                        th:value="${curso.id}"
+                        th:checked="${cursosInscritos.contains(curso.id)}"
+                      />
+
+                      <span class="fw-semibold" th:text="${curso.nombre}">
+                      </span>
+                    </div>
+
+                    <span
+                      class="badge bg-secondary"
+                      th:text="'Semestre ' + ${curso.semestre}"
+                    >
+                    </span>
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 btn-lg">
+                  Guardar inscripción
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-
-        <button type="submit" class="btn btn-primary w-100">Inscribir</button>
-      </form>
+      </div>
     </main>
 
     <div th:replace="fragmentos :: footer"></div>

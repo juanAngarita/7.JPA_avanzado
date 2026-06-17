@@ -3,7 +3,8 @@ package com.example.demo.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.ManyToAny;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,10 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,11 +28,7 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor
 @Builder
-// @Table(name = "STUNDENT_TABLE")
 public class Student {
-
-    // 1,2,3,4....1000
-    // asdasda-asdasdasd-asdasdasd
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +36,7 @@ public class Student {
     @Column(name = "student_name", length = 50, nullable = false)
     private String nombre;
     @Column(nullable = false)
+    @Builder.Default
     private int semestre = 1;
     @Column(length = 70, unique = true)
     private String correo;
@@ -50,9 +46,12 @@ public class Student {
     private Carrera carrera;
 
     @ManyToMany(mappedBy = "students")
+    @Builder.Default
     private List<Profesor> profesores = new ArrayList<>();
 
     @OneToMany(mappedBy = "student")
+    @Builder.Default
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Inscripcion> inscripciones = new ArrayList<>();
 
     public Student(String nombre, int semestre, String correo, String imageUrl) {

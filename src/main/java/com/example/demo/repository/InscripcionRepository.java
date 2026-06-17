@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entities.Inscripcion;
 
-@Repository
 public interface InscripcionRepository extends JpaRepository<Inscripcion, Long> {
 
 }
