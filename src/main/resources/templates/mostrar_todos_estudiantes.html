@@ -16,17 +16,10 @@
     <div th:replace="fragmentos :: navbar"></div>
 
     <main class="container">
-      <h1 class="text-center">Estudiante de Javeriana</h1>
-      <ul>
-        <li th:each="estudiante: ${estudiantes}">
-          <a th:href="@{/student/{id}(id=${estudiante.id})}">
-            <span th:text="${estudiante.nombre}"></span>
-            <span th:if="${estudiante.semestre > 10}">🎓</span>
-          </a>
-        </li>
-      </ul>
+      <h1 class="text-center mt-4 mb-4">Estudiantes de la Javeriana</h1>
+
       <div>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered  table-hover text-center">
           <thead>
             <tr class="table-head">
               <th>Nombre</th>
@@ -43,6 +36,11 @@
               <td th:text="${persona.carrera.nombre}"></td>
               <td th:text="${persona.semestre}"></td>
               <td>
+                 <a
+                  class="btn btn-primary"
+                  th:href="@{/student/{id}(id=${persona.id})}"
+                  >Ver detalle</a
+                >
                 <a
                   class="btn btn-info"
                   th:href="@{/student/update/{id}(id=${persona.id})}"

@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entities.Curso;
-import com.example.demo.entities.Inscripcion;
 import com.example.demo.entities.Student;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.service.CarreraService;
-import com.example.demo.service.CursoService;
-import com.example.demo.service.InscripcionService;
 import com.example.demo.service.StudentService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,19 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class StudentController {
 
     @Autowired
-    private Student estudiante2;
-
-    @Autowired
     StudentService service;
 
     @Autowired
     CarreraService carreraService;
-
-    @Autowired
-    CursoService cursoService;
-
-    @Autowired
-    InscripcionService inscripcionService;
 
     Logger log = LoggerFactory.getLogger(StudentController.class);
 
@@ -97,6 +82,9 @@ public class StudentController {
 
         model.addAttribute("estudiante", student);
 
+                model.addAttribute("carreras", carreraService.searchAll());
+
+
         return "crear_estudiante";
     }
 
@@ -112,46 +100,14 @@ public class StudentController {
         return "redirect:/student";
     }
 
-    @GetMapping("/quemado")
-    public String mostrarInformacionQuemada(Model model) {
+        // nuevo
+    @GetMapping(params = "nombre")
+    public String buscarEstudiantesPorNombre(@RequestParam String nombre, Model model) {
+        model.addAttribute("estudiantes", service.findByNombre(nombre));
 
-        Student student = new Student("Perez", 20, "pepe@pe.pe",
-                "https://avatars.githubusercontent.com/u/1561955?v=4");
-
-        model.addAttribute("estudiante", student);
-
-        return "mostrar_estudiante";
+        return "mostrar_todos_estudiantes";
     }
 
-    @GetMapping("/bean")
-    public String mostrarInformacionBean(Model model) {
 
-        model.addAttribute("estudiante", estudiante2);
-
-        return "mostrar_estudiante";
-    }
-
-    @GetMapping("/{id}/inscribir")
-    public String mostrarFormularioInscripcion(@PathVariable Long id, Model model) {
-        // estudiante
-        // cursos
-
-        Student student = service.searchById(id);
-        model.addAttribute("estudiante", student);
-        List<Curso> cursos = cursoService.searchAll();
-        model.addAttribute("cursos", cursos);
-
-        return "inscribir";
-    }
-
-    @PostMapping("/{id}/inscribir")
-    public String procesarInscripcionMultiple(
-            @PathVariable Long id,
-            @RequestParam List<Long> cursosIds) {
-
-        inscripcionService.createAndSaveMultipleInscriptions(id, cursosIds);
-
-        return "redirect:/student/" + id;
-    }
 
 }

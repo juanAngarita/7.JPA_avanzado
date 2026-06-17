@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,13 +25,12 @@ public class Profesor {
     private String nombre;
     private String correo;
 
+    @Builder.Default
     @ManyToMany
     private List<Student> students = new ArrayList<>();
 
-    @OneToMany(mappedBy = "profesor")
-    private List<Curso> cursos = new ArrayList<>();
-
     public Profesor(String nombre, String correo) {
+        this.students = new ArrayList<>();
         this.nombre = nombre;
         this.correo = correo;
     }

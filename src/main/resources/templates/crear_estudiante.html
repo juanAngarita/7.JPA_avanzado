@@ -54,7 +54,7 @@
 
                 <div class="mb-3">
                   <label for="carrera" class="form-label">Carrera</label>
-                  <select name="carreraId">
+                  <select name="carreraId" th:field="*{carrera}" >
                     <option
                       th:each="carrera : ${carreras}"
                       th:value="${carrera.id}"
