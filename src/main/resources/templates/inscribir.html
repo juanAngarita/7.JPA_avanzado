@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/general.css}" />
+  </head>
+  <body>
+    <div th:replace="fragmentos :: navbar"></div>
+
+    <main class="container">
+      <h1 class="text-center">Inscriibir materias</h1>
+      <p>Estudiante: <span th:text="${estudiante.nombre}"></span></p>
+
+      <form
+        th:action="@{/student/{id}/inscribir(id=${estudiante.id})}"
+        method="post"
+      >
+        <p>Selecciona tus cursos</p>
+        <div th:each="curso : ${cursos}">
+          <input type="checkbox" name="cursosIds" th:value="${curso.id}" />
+          <span th:text="${curso.nombre} + ' - ' + ${curso.semestre}"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Inscribir</button>
+      </form>
+    </main>
+
+    <div th:replace="fragmentos :: footer"></div>
+  </body>
+</html>

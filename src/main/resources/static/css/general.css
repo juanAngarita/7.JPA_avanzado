@@ -1,0 +1,54 @@
+.navbar {
+  background-color: #123456;
+}
+
+.navbar h1,
+.navbar a,
+.navbar-nav {
+  color: #ffffff !important;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.btn-primary {
+  background-color: #123456;
+  border-color: #123456;
+}
+
+.btn-primary:hover {
+  background-color: #0f2a45;
+  border-color: #0f2a45;
+}
+
+.bg-primary {
+  background-color: #123456 !important;
+}
+
+.text-primary {
+  color: #123456 !important;
+}
+
+.table-head {
+  background-color: #123456;
+  color: white;
+}
+
+table.table-bordered {
+  border: 2px solid black;
+}
+
+table.table-bordered th,
+table.table-bordered td {
+  border: 1px solid black;
+}
